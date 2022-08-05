@@ -7,7 +7,7 @@ class Sidebar extends Component {
       <div>
         Categorias
         <nav>
-          <button type="button">x</button>
+          <button type="button">Informática</button>
         </nav>
       </div>
     );
