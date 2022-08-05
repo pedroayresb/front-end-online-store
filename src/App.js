@@ -1,12 +1,16 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+// import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import Home from './pages/Home';
 
 function App() {
-  console.log(getCategories());
-  console.log(getProductsFromCategoryAndQuery('Agro'));
   return (
-    <h1>hello world</h1>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Home } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
