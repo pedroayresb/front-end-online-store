@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, getProductById } from '../services/api';
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Home extends React.Component {
       productsSearch: [],
       inputSearch: '',
       searching: false,
+      addCart: [],
     };
   }
 
@@ -28,6 +29,18 @@ class Home extends React.Component {
     this.setState({
       productsSearch: products,
       searching: true,
+    });
+  }
+
+  handleClickCart = async ({ target }) => {
+    const { id } = target.parentNode;
+    const prodCart = await getProductById(id);
+
+    this.setState((prev) => ({
+      addCart: [...prev.addCart, prodCart],
+    }), () => {
+      const { addCart } = this.state;
+      localStorage.setItem('cart_items', JSON.stringify(addCart));
     });
   }
 
@@ -76,6 +89,8 @@ class Home extends React.Component {
                 name={ prod.title }
                 imagem={ prod.thumbnail }
                 price={ prod.price }
+                id={ prod.id }
+                addClick={ this.handleClickCart }
               />
             ))
           )}
