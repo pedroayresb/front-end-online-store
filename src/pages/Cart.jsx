@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 
 export default class Cart extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cart: [],
-      total: 0,
-    };
-  }
-
   render() {
-    const { cart, total } = this.state;
+    const cart = [];
     console.log(total);
     if (cart.length === 0) {
       return (
