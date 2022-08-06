@@ -4,15 +4,19 @@ import './App.css';
 // import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={ Home } />
-        <Route path="/cart" component={ Cart } />
-      </Switch>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Home } />
+          <Route path="/cart" component={ Cart } />
+        </Switch>
+      </BrowserRouter>
+      <Sidebar />
+    </>
   );
 }
 
