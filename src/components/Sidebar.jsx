@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 // REQUISITO 4
 class Sidebar extends Component {
   constructor() {
@@ -7,6 +7,7 @@ class Sidebar extends Component {
 
     this.state = {
       categories: [],
+      productsPerCategories: [],
     };
   }
 
@@ -16,18 +17,39 @@ class Sidebar extends Component {
     this.setState({ categories: categoriesObject });
   }
 
+  handleClick = async ({ target: { name } }) => {
+    const response = await getProductsFromCategoryAndQuery(name);
+    const data = await response.results;
+    this.setState({ productsPerCategories: data });
+  }
+
   render() {
-    const { categories } = this.state;
+    const { categories, productsPerCategories } = this.state;
+    console.log(productsPerCategories);
     return (
       <div>
         Categorias:
         <nav>
           {categories.map((categorie) => (
-            <button type="button" data-testid="category" key={ categorie.id }>
+            <button
+              onClick={ this.handleClick }
+              name={ categorie.name }
+              type="button"
+              data-testid="category"
+              key={ categorie.id }
+            >
               {categorie.name}
             </button>
           ))}
         </nav>
+        <section>
+          {productsPerCategories.map((product) => (
+            <div data-testid="product" key={ product.id }>
+              <img src={ product.thumbnail } alt={ product.title } />
+              {product.title}
+            </div>
+          ))}
+        </section>
       </div>
     );
   }
