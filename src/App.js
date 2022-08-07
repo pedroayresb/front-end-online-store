@@ -13,12 +13,13 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Home } />
-          <Route path="/cart" component={ Cart } />
-          <Route exact path="/product/:id" component={ Product } /> 
+          <Route exact path="/cart" component={ Cart } />
+          {/* adicionei o exact no path do cart  */}
+          <Route exact path="/product/:id" component={ Product } />
         </Switch>
       </BrowserRouter>
       <Sidebar />
     </>
- );
+  );
 }
 export default App;
