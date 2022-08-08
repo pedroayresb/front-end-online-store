@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
-// REQUISITO 4
+import Loading from './Loading';
+
 class Sidebar extends Component {
   constructor() {
     super();
@@ -8,6 +9,7 @@ class Sidebar extends Component {
     this.state = {
       categories: [],
       productsPerCategories: [],
+      loading: false,
     };
   }
 
@@ -17,15 +19,16 @@ class Sidebar extends Component {
     this.setState({ categories: categoriesObject });
   }
 
-  handleClick = async ({ target: { name } }) => {
-    const response = await getProductsFromCategoryAndQuery(name);
-    const data = await response.results;
-    this.setState({ productsPerCategories: data });
+  handleClick = ({ target: { name } }) => {
+    this.setState({ loading: true }, async () => {
+      const response = await getProductsFromCategoryAndQuery(name);
+      const data = await response.results;
+      this.setState({ productsPerCategories: data, loading: false });
+    });
   }
 
   render() {
-    const { categories, productsPerCategories } = this.state;
-    console.log(productsPerCategories);
+    const { categories, productsPerCategories, loading } = this.state;
     return (
       <div>
         Categorias:
@@ -43,6 +46,7 @@ class Sidebar extends Component {
           ))}
         </nav>
         <section>
+          {loading && <Loading /> }
           {productsPerCategories.map((product) => (
             <div data-testid="product" key={ product.id }>
               <img src={ product.thumbnail } alt={ product.title } />
