@@ -23,7 +23,6 @@ export default class Search extends React.Component {
   handleClick = async (event) => {
     event.preventDefault();
     const { inputSearch } = this.state;
-    console.log(inputSearch);
     const response = await getProductsFromCategoryAndQuery(inputSearch);
     const products = await response.results;
     this.setState({
@@ -62,6 +61,7 @@ export default class Search extends React.Component {
               name={ prod.title }
               imagem={ prod.thumbnail }
               price={ prod.price }
+              id={ prod.id }
             />
           ))
         )}
