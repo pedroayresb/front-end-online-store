@@ -6,8 +6,8 @@ class ProductCard extends Component {
   render() {
     const { name, imagem, price, addClick, id } = this.props;
     return (
-      <div data-testid="product">
-        <Link to={ `/product/${id}` } data-testid="product-detail-link" id={ id }>
+      <div data-testid="product" id={ id }>
+        <Link to={ `/product/${id}` } data-testid="product-detail-link">
           <p>{ name }</p>
           <img src={ imagem } alt={ name } />
           <p>{ price }</p>
