@@ -30,9 +30,9 @@ class Sidebar extends Component {
     addItem(prodCart[0]);
   }
 
-  handleClick = ({ target: { name } }) => {
+  handleClick = ({ target: { id } }) => {
     this.setState({ loading: true }, async () => {
-      const response = await getProductsFromCategoryAndQuery(name);
+      const response = await getProductsFromCategoryAndQuery(id);
       const data = await response.results;
       this.setState({ productsPerCategories: data, loading: false });
     });
@@ -40,6 +40,7 @@ class Sidebar extends Component {
 
   render() {
     const { categories, productsPerCategories, loading } = this.state;
+    console.log(loading);
     return (
       <div>
         Categorias:
@@ -48,6 +49,7 @@ class Sidebar extends Component {
             <button
               onClick={ this.handleClick }
               name={ categorie.name }
+              id={ categorie.id }
               type="button"
               data-testid="category"
               key={ categorie.id }
@@ -67,15 +69,6 @@ class Sidebar extends Component {
               addClick={ this.handleClickCart }
               id={ prod.id }
             />
-            // <div key={ product.id } data-testid="product ">
-            //   <Link
-            //     data-testid="product-detail-link"
-            //     to={ `/product/${product.id}` }
-            //   >
-            //     <img src={ product.thumbnail } alt={ product.title } />
-            //     { product.title }
-            //   </Link>
-            // </div>
           ))}
         </section>
       </div>
