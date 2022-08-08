@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CartProduct from '../components/CartProduct';
+import { readItems } from '../services/local';
 
 export default class Cart extends Component {
   constructor() {
@@ -10,10 +11,11 @@ export default class Cart extends Component {
   }
 
   async componentDidMount() { // esse codigo cria um novo objeto unique, com os dados dos objetos juntamente com uma contagem de quantas vezes eles aparecem
+    const cart = readItems();
     const NEG = -1;
     const count = cart.reduce((acc, v) => ({ ...acc, [v.id]: (acc[v.id] || 0) + 1 }), {});
     const fullObj = [];
-    api.forEach((c) => {
+    cart.forEach((c) => {
       if (fullObj.indexOf(c.id) === NEG) {
         const obj = {
           id: c.id,
@@ -40,7 +42,7 @@ export default class Cart extends Component {
 
   render() {
     const { cartItens } = this.state;
-    if (cart.length === 0) {
+    if (cartItens.length === 0) {
       return (
         <div className="cart">
           <h1>Carrinho</h1>
@@ -59,7 +61,6 @@ export default class Cart extends Component {
             productQuantity={ item.count }
             available_quantity={ item.maxQuantity }
           />))}
-    
       </div>
     );
   }
