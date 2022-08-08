@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Loading from './Loading';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
 class Sidebar extends Component {
   constructor() {
@@ -48,9 +49,14 @@ class Sidebar extends Component {
         <section>
           {loading && <Loading /> }
           {productsPerCategories.map((product) => (
-            <div data-testid="product" key={ product.id }>
-              <img src={ product.thumbnail } alt={ product.title } />
-              {product.title}
+            <div key={ product.id } data-testid="product ">
+              <Link
+                data-testid="product-detail-link"
+                to={ `/product/${product.id}` }
+              >
+                <img src={ product.thumbnail } alt={ product.title } />
+                { product.title }
+              </Link>
             </div>
           ))}
         </section>

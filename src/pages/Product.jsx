@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-// import propTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
-// import { getProductById } from '../services/api';
 import Header from '../components/Header';
+// import { Link } from 'react-router-dom';
+import { getProductById } from '../services/api';
 
 export default class Product extends Component {
   constructor() {
@@ -13,20 +13,20 @@ export default class Product extends Component {
   }
 
   async componentDidMount() {
-    const { match } = this.props;
-    const { id } = match.params;
+    const { match: { params: { id } } } = this.props;
     const apiReturn = await getProductById(id);
     this.setState({
       product: apiReturn,
     });
   }
-  
+
   render() {
     const { product } = this.state;
     const { title, thumbnail, price } = product;
 
     return (
       <div>
+        <h1>TESTE</h1>
         <Header />
         <h1 data-testid="product-detail-name">{ title }</h1>
         <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
@@ -35,3 +35,10 @@ export default class Product extends Component {
     );
   }
 }
+Product.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
