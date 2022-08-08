@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { getProductById } from '../services/api';
+// import { Link } from 'react-router-dom';
+// import { getProductById } from '../services/api';
 import Header from '../components/Header';
 
 export default class Product extends Component {
@@ -20,10 +20,10 @@ export default class Product extends Component {
       product: apiReturn,
     });
   }
-
+  
   render() {
     const { product } = this.state;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price } = product;
 
     return (
       <div>
@@ -31,8 +31,6 @@ export default class Product extends Component {
         <h1 data-testid="product-detail-name">{ title }</h1>
         <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
         <span data-testid="product-detail-price">{ price }</span>
-        {/* <Link to={`/cart`} data-testid="shopping-cart-button">Carrinho</Link> */}
-
       </div>
     );
   }
