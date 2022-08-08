@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from '../components/Header';
 // import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import { addItem } from '../services/local';
 
 export default class Product extends Component {
   constructor() {
@@ -20,6 +21,12 @@ export default class Product extends Component {
     });
   }
 
+  handleClickCart = () => {
+    const { product } = this.state;
+    console.log(product);
+    addItem(product);
+  }
+
   render() {
     const { product } = this.state;
     const { title, thumbnail, price } = product;
@@ -31,6 +38,13 @@ export default class Product extends Component {
         <h1 data-testid="product-detail-name">{ title }</h1>
         <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
         <span data-testid="product-detail-price">{ price }</span>
+        <button
+          onClick={ this.handleClickCart }
+          type="button"
+          data-testid="product-detail-add-to-cart"
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
