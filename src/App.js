@@ -16,7 +16,6 @@ function App() {
         <Route exact path="/product/:id" component={ Product } />
       </Switch>
     </BrowserRouter>
-
   );
 }
 export default App;
