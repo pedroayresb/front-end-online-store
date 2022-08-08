@@ -14,11 +14,11 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Home } />
           <Route path="/cart" component={ Cart } />
-          <Route exact path="/product/:id" component={ Product } /> 
+          <Route exact path="/product/:id" component={ Product } />
         </Switch>
       </BrowserRouter>
       <Sidebar />
     </>
- );
+  );
 }
 export default App;
