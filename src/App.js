@@ -9,18 +9,6 @@ import Product from './pages/Product';
 
 function App() {
   return (
-<<<<<<< HEAD
-    <>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route path="/cart" component={ Cart } />
-          <Route exact path="/product/:id" component={ Product } />
-        </Switch>
-      </BrowserRouter>
-      <Sidebar />
-    </>
-=======
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Home } />
@@ -28,7 +16,6 @@ function App() {
         <Route exact path="/product/:id" component={ Product } />
       </Switch>
     </BrowserRouter>
->>>>>>> c22f2777ae2f3ed073ed9d0ba591b9fce6d5a82c
   );
 }
 export default App;

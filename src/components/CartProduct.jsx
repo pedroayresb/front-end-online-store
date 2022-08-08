@@ -19,7 +19,7 @@ export default class CartProduct extends Component {
         <img scr={ productImage } alt={ productName } />
         <p data-testid="shopping-cart-product-name">{ productName }</p>
         <button type="button" data-testid="product-decrease-quantity"> - </button>
-        <p>{ productQuantity }</p>
+        <p data-testid="shopping-cart-product-quantity">{ productQuantity }</p>
         <p>
           `Quantidade maxima:
           $
