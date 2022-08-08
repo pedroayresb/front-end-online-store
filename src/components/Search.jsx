@@ -1,7 +1,8 @@
 // Requisito 5
 import React from 'react';
 import ProductCard from './ProductCard';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, getProductById } from '../services/api';
+import { addItem } from '../services/local';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -30,6 +31,12 @@ export default class Search extends React.Component {
       searching: true,
     });
   };
+
+  handleClickCart = async ({ target }) => {
+    const { id } = target.parentNode;
+    const prodCart = await getProductById(id);
+    addItem(prodCart);
+  }
 
   render() {
     const { productsSearch, searching } = this.state;
@@ -61,6 +68,7 @@ export default class Search extends React.Component {
               name={ prod.title }
               imagem={ prod.thumbnail }
               price={ prod.price }
+              addClick={ this.handleClickCart }
               id={ prod.id }
             />
           ))
