@@ -7,13 +7,13 @@ import Header from '../components/Header';
 export default class Product extends Component {
   constructor() {
     super();
-    this.state = { 
+    this.state = {
       product: {},
     };
   }
 
   async componentDidMount() {
-    const { match } = this.props; 
+    const { match } = this.props;
     const { id } = match.params;
     const apiReturn = await getProductById(id);
     this.setState({
