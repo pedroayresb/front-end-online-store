@@ -10,10 +10,14 @@ export default class CartProduct extends Component {
       maxQuantity } = this.props;
     const price = `R$ ${parseFloat(productPrice * productQuantity).toFixed(2)}`;
     return (
-      <div className="CartProduct" style={ { display: 'flex' } }>
+      <div
+        data-testid="product-add-to-cart"
+        className="CartProduct"
+        style={ { display: 'flex' } }
+      >
         <button type="button" className="CartProduct__remove"> X </button>
         <img scr={ productImage } alt={ productName } />
-        <p>{ productName }</p>
+        <p data-testid="shopping-cart-product-name">{ productName }</p>
         <button type="button" data-testid="product-decrease-quantity"> - </button>
         <p>{ productQuantity }</p>
         <p>
