@@ -59,6 +59,7 @@ export default class Cart extends Component {
             productQuantity={ item.count }
             available_quantity={ item.maxQuantity }
           />))}
+    
       </div>
     );
   }

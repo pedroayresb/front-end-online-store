@@ -5,20 +5,17 @@ import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
-import Sidebar from './components/Sidebar';
+// import Sidebar from './components/Sidebar';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route path="/cart" component={ Cart } />
-          <Route exact path="/product/:id" component={ Product } />
-        </Switch>
-      </BrowserRouter>
-      <Sidebar />
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Home } />
+        <Route exact path="/cart" component={ Cart } />
+        <Route exact path="/product/:id" component={ Product } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 export default App;
