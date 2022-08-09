@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Header from '../components/Header';
 // import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
-import { addItem } from '../services/local';
+import { addItem, readItems } from '../services/local';
 import AddReview from '../components/AddReview';
 // teste
 export default class Product extends Component {
@@ -15,6 +15,9 @@ export default class Product extends Component {
   }
 
   async componentDidMount() {
+    const cart = readItems();
+    const count = cart.reduce((acc, item) => acc + item.count, 0);
+    this.setState({ count });
     const {
       match: {
         params: { id },
@@ -28,12 +31,13 @@ export default class Product extends Component {
 
   handleClickCart = () => {
     const { product } = this.state;
-    console.log(product);
     addItem(product);
+    const { count } = this.state;
+    this.setState({ count: count + 1 });
   };
 
   render() {
-    const { product } = this.state;
+    const { product, count } = this.state;
     const { title, thumbnail, price, shipping } = product;
     let freeShipping = false;
     if (shipping !== undefined) {
@@ -42,7 +46,7 @@ export default class Product extends Component {
     return (
       <section>
         <div>
-          <Header />
+          <Header count={ count } />
           <h1 data-testid="product-detail-name">{title}</h1>
           {freeShipping && <p data-testid="free-shipping">Frete Grátis!</p>}
           <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
