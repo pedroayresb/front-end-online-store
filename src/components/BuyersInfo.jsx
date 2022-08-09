@@ -49,7 +49,7 @@ export default class BuyersInfo extends Component {
             data-testid="checkout-address"
             onChange={ onInputChange }
           />
-          {isFull ? <h1 data-testid="error-msg">Campos inválidos</h1> : null}
+          {!isFull ? <h1 data-testid="error-msg">Campos inválidos</h1> : null}
         </form>
       </div>
     );
