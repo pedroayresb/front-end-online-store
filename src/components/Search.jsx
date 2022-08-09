@@ -1,5 +1,6 @@
 // Requisito 5
 import React from 'react';
+import propTypes from 'prop-types';
 import ProductCard from './ProductCard';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import { addItem } from '../services/local';
@@ -34,10 +35,12 @@ export default class Search extends React.Component {
   };
 
   handleClickCart = async ({ target }) => {
+    const { addCount } = this.props;
     const { id } = target.parentNode;
     const { productsSearch } = this.state;
     const prodCart = productsSearch.filter((product) => product.id === id);
     addItem(prodCart[0]);
+    addCount();
   }
 
   render() {
@@ -64,18 +67,25 @@ export default class Search extends React.Component {
         {productsSearch.length === 0 && searching === true ? (
           <h1>Nenhum produto foi encontrado</h1>
         ) : (
-          productsSearch.map((prod, idKey) => (
-            <ProductCard
+          productsSearch.map((prod, idKey) => {
+            const { shipping } = prod;
+            return (<ProductCard
               key={ idKey }
               name={ prod.title }
               imagem={ prod.thumbnail }
               price={ prod.price }
               addClick={ this.handleClickCart }
               id={ prod.id }
+              freeShipping={ shipping.free_shipping }
             />
-          ))
+            );
+          })
         )}
       </div>
     );
   }
 }
+
+Search.propTypes = {
+  addCount: propTypes.func.isRequired,
+};

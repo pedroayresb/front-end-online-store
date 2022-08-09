@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CartProduct from '../components/CartProduct';
-import { readItems } from '../services/local';
+import Loading from '../components/Loading';
+import { readItems, removeItem, saveItem } from '../services/local';
 
 export default class Cart extends Component {
   constructor() {
@@ -8,40 +10,42 @@ export default class Cart extends Component {
     this.state = {
       cartItens: [],
     };
+    this.removeProduct = this.removeProduct.bind(this);
   }
 
-  async componentDidMount() { // esse codigo cria um novo objeto unique, com os dados dos objetos juntamente com uma contagem de quantas vezes eles aparecem
+  async componentDidMount() {
     const cart = readItems();
-    const NEG = -1;
-    const count = cart.reduce((acc, v) => ({ ...acc, [v.id]: (acc[v.id] || 0) + 1 }), {});
-    const fullObj = [];
-    cart.forEach((c) => {
-      if (fullObj.indexOf(c.id) === NEG) {
-        const obj = {
-          id: c.id,
-          count: count[c.id],
-          title: c.title,
-          price: c.price,
-          thumbnail: c.thumbnail,
-          maxQuantity: c.available_quantity,
-        };
-        fullObj.push(obj);
-      }
+    this.setState({ cartItens: cart });
+  }
+
+  removeProduct = (item) => () => {
+    const { cartItens } = this.state;
+    this.setState({ loading: true }, () => {
+      const filtered = cartItens.filter((i) => i.id !== item.id);
+      removeItem(item);
+      this.setState({ loading: false, cartItens: filtered });
     });
-    const uniqueIds = [];
-    const unique = fullObj.filter((element) => {
-      const isDuplicate = uniqueIds.includes(element.id);
-      if (!isDuplicate) {
-        uniqueIds.push(element.id);
-        return true;
-      }
-      return false;
-    });
-    this.setState({ cartItens: unique });
+  }
+
+  addStorage = (item) => {
+    const localStorage = readItems();
+    const index = localStorage.findIndex((i) => i.id === item);
+    localStorage[index].count += 1;
+    saveItem(localStorage);
+  }
+
+  removeStorage = (item) => {
+    const localStorage = readItems();
+    const index = localStorage.findIndex((i) => i.id === item);
+    localStorage[index].count -= 1;
+    saveItem(localStorage);
   }
 
   render() {
-    const { cartItens } = this.state;
+    const { cartItens, loading } = this.state;
+    if (loading) {
+      return <Loading />;
+    }
     if (cartItens.length === 0) {
       return (
         <div className="cart">
@@ -55,12 +59,18 @@ export default class Cart extends Component {
         {cartItens.map((item, i) => (
           <CartProduct
             key={ i }
+            id={ item.id }
+            removeProduct={ this.removeProduct(item) }
             productImage={ item.thumbnail }
             productName={ item.title }
             productPrice={ item.price }
             productQuantity={ item.count }
-            available_quantity={ item.maxQuantity }
+            maxQuantity={ item.maxQuantity }
+            freeShipping={ item.freeShipping }
+            addStorage={ this.addStorage }
+            removeStorage={ this.removeStorage }
           />))}
+        <Link to="/payment" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }
