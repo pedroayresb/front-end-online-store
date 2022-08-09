@@ -16,7 +16,6 @@ export default class Payments extends Component {
       CEP: '',
       address: '',
       paymentType: '',
-      isFull: false,
     };
   }
 
