@@ -22,13 +22,14 @@ export default class Product extends Component {
 
   render() {
     const { product } = this.state;
-    const { title, thumbnail, price } = product;
+    const { title, thumbnail, price, shipping } = product;
+    const { freeShipping } = shipping;
 
     return (
       <div>
-        <h1>TESTE</h1>
         <Header />
         <h1 data-testid="product-detail-name">{ title }</h1>
+        {freeShipping && <p data-testid="free-shipping">Frete Grátis!</p>}
         <img src={ thumbnail } alt={ title } data-testid="product-detail-image" />
         <span data-testid="product-detail-price">{ price }</span>
       </div>
