@@ -28,7 +28,7 @@ export default class Payments extends Component {
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value }, () => {
       this.setState({
-        isFull: !this.validation(),
+        isFull: this.validation(),
       });
     });
   }

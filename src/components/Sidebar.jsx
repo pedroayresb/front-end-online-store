@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import Loading from './Loading';
 import ProductCard from './ProductCard';
 import { getCategories,
   getProductsFromCategoryAndQuery } from '../services/api';
 import { addItem } from '../services/local';
 
-class Sidebar extends Component {
+export default class Sidebar extends Component {
   constructor() {
     super();
 
@@ -23,10 +24,12 @@ class Sidebar extends Component {
   }
 
   handleClickCart = async ({ target }) => {
+    const { addCount } = this.props;
     const { id } = target.parentNode;
     const { productsPerCategories } = this.state;
     const prodCart = productsPerCategories.filter((product) => product.id === id);
     addItem(prodCart[0]);
+    addCount();
   }
 
   handleClick = ({ target: { id } }) => {
@@ -77,4 +80,6 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+Sidebar.propTypes = {
+  addCount: propTypes.func.isRequired,
+};
