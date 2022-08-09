@@ -8,10 +8,10 @@ export const saveItem = (item) => localStorage.setItem(KEY, JSON.stringify(item)
 export const addItem = (item) => {
   if (item) {
     const cart = readItems();
+    const isInCart = cart.find((cartItem) => cartItem.id === item.id);
     const freeShipping = item.shipping.free_shipping;
-    const count = cart.reduce((acc, v) => ({ ...acc, [v.id]: (acc[v.id] || 0) + 1 }), {});
     let obj;
-    if (count[item.id] === undefined) {
+    if (isInCart === undefined) {
       obj = {
         id: item.id,
         count: 1,
@@ -23,16 +23,16 @@ export const addItem = (item) => {
       };
       saveItem([...cart, obj]);
     } else {
+      const index = cart.findIndex((i) => i.id === item.id);
       obj = {
         id: item.id,
-        count: count[item.id] + 1,
+        count: cart[index].count += 1,
         title: item.title,
         price: item.price,
         thumbnail: item.thumbnail,
         maxQuantity: item.available_quantity,
         freeShipping,
       };
-      const index = cart.findIndex((i) => i.id === item.id);
       cart[index] = obj;
       saveItem(cart);
     }
