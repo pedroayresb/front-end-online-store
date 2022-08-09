@@ -8,6 +8,7 @@ export const saveItem = (item) => localStorage.setItem(KEY, JSON.stringify(item)
 export const addItem = (item) => {
   if (item) {
     const cart = readItems();
+    const freeShipping = item.shipping.free_shipping;
     const count = cart.reduce((acc, v) => ({ ...acc, [v.id]: (acc[v.id] || 0) + 1 }), {});
     let obj;
     if (count[item.id] === undefined) {
@@ -18,6 +19,7 @@ export const addItem = (item) => {
         price: item.price,
         thumbnail: item.thumbnail,
         maxQuantity: item.available_quantity,
+        freeShipping,
       };
       saveItem([...cart, obj]);
     } else {
@@ -28,6 +30,7 @@ export const addItem = (item) => {
         price: item.price,
         thumbnail: item.thumbnail,
         maxQuantity: item.available_quantity,
+        freeShipping,
       };
       const index = cart.findIndex((i) => i.id === item.id);
       cart[index] = obj;
@@ -38,4 +41,8 @@ export const addItem = (item) => {
 export const removeItem = (item) => {
   const items = readItems();
   saveItem(items.filter((i) => i.id !== item.id));
+};
+export const clearCart = () => {
+  localStorage.removeItem(KEY);
+  localStorage.setItem(KEY, JSON.stringify([]));
 };

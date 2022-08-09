@@ -52,15 +52,20 @@ export default class CartProduct extends Component {
   render() {
     const { productImage,
       productName,
-      removeProduct } = this.props;
+      removeProduct,
+      freeShipping } = this.props;
     const { quantity, price, maxQuantity } = this.state;
     const isQuant = `${quantity}/(${maxQuantity})`;
     const isPrice = `R$ ${parseFloat(price).toFixed(2)}`;
+    const style = {
+      display: 'flex',
+      justifyContent: 'space-between',
+    };
     return (
       <div
         data-testid="product-add-to-cart"
         className="CartProduct"
-        style={ { display: 'flex' } }
+        style={ style }
       >
         <button
           type="button"
@@ -71,6 +76,7 @@ export default class CartProduct extends Component {
           X
         </button>
         <img scr={ productImage } alt={ productName } />
+        {freeShipping ? <p data-testid="free-shipping">Frete gratis</p> : null}
         <p data-testid="shopping-cart-product-name">{ productName }</p>
         <button
           type="button"
@@ -103,4 +109,5 @@ CartProduct.propTypes = {
   removeProduct: propTypes.func.isRequired,
   addStorage: propTypes.func.isRequired,
   removeStorage: propTypes.func.isRequired,
+  freeShipping: propTypes.bool.isRequired,
 };

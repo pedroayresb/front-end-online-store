@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CartProduct from '../components/CartProduct';
 import Loading from '../components/Loading';
 import { readItems, removeItem, saveItem } from '../services/local';
@@ -65,9 +66,11 @@ export default class Cart extends Component {
             productPrice={ item.price }
             productQuantity={ item.count }
             maxQuantity={ item.maxQuantity }
+            freeShipping={ item.freeShipping }
             addStorage={ this.addStorage }
             removeStorage={ this.removeStorage }
           />))}
+        <Link to="/payment" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }

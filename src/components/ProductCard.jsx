@@ -10,7 +10,7 @@ class ProductCard extends Component {
         <Link to={ `/product/${id}` } data-testid="product-detail-link">
           <p>{ name }</p>
           <img src={ imagem } alt={ name } />
-          <p>{ price }</p>
+          <p>{ ` R$ ${parseFloat(price).toFixed(2)}` }</p>
         </Link>
         <button
           onClick={ addClick }
