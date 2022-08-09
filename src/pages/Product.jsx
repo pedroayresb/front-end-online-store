@@ -23,8 +23,10 @@ export default class Product extends Component {
   render() {
     const { product } = this.state;
     const { title, thumbnail, price, shipping } = product;
-    const { freeShipping } = shipping;
-
+    let freeShipping = false;
+    if (shipping !== undefined) {
+      freeShipping = shipping.free_shipping;
+    }
     return (
       <div>
         <Header />
