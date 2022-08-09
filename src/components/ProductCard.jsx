@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends Component {
   render() {
-    const { name, imagem, price, addClick, id } = this.props;
+    const { name, imagem, price, addClick, id, freeShipping } = this.props;
     return (
       <div data-testid="product" id={ id }>
         <Link to={ `/product/${id}` } data-testid="product-detail-link">
           <p>{ name }</p>
           <img src={ imagem } alt={ name } />
+          {freeShipping && <p data-testid="free-shipping">Frete Grátis!</p>}
           <p>{ ` R$ ${parseFloat(price).toFixed(2)}` }</p>
         </Link>
         <button
@@ -30,6 +31,7 @@ ProductCard.propTypes = {
   price: PropTypes.number.isRequired,
   addClick: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  freeShipping: PropTypes.bool.isRequired,
 };
 
 export default ProductCard;

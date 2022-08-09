@@ -58,16 +58,19 @@ class Sidebar extends Component {
         </nav>
         <section>
           {loading && <Loading /> }
-          {productsPerCategories.map((prod, idKey) => (
-            <ProductCard
+          {productsPerCategories.map((prod, idKey) => {
+            const { shipping } = prod;
+            return (<ProductCard
               key={ idKey }
               name={ prod.title }
               imagem={ prod.thumbnail }
               price={ prod.price }
               addClick={ this.handleClickCart }
               id={ prod.id }
+              freeShipping={ shipping.free_shipping }
             />
-          ))}
+            );
+          })}
         </section>
       </div>
     );

@@ -64,16 +64,19 @@ export default class Search extends React.Component {
         {productsSearch.length === 0 && searching === true ? (
           <h1>Nenhum produto foi encontrado</h1>
         ) : (
-          productsSearch.map((prod, idKey) => (
-            <ProductCard
+          productsSearch.map((prod, idKey) => {
+            const { shipping } = prod;
+            return (<ProductCard
               key={ idKey }
               name={ prod.title }
               imagem={ prod.thumbnail }
               price={ prod.price }
               addClick={ this.handleClickCart }
               id={ prod.id }
+              freeShipping={ shipping.free_shipping }
             />
-          ))
+            );
+          })
         )}
       </div>
     );
