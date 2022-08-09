@@ -4,6 +4,8 @@ import Header from '../components/Header';
 // import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import { addItem } from '../services/local';
+import AddReview from '../components/AddReview';
+
 
 export default class Product extends Component {
   constructor() {
@@ -32,6 +34,7 @@ export default class Product extends Component {
     const { title, thumbnail, price } = product;
 
     return (
+    <section>
       <div>
         <h1>TESTE</h1>
         <Header />
@@ -46,6 +49,8 @@ export default class Product extends Component {
           Adicionar ao carrinho
         </button>
       </div>
+      <AddReview />
+    </section>
     );
   }
 }
