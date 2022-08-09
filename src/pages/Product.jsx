@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { getProductById } from '../services/api';
 import { addItem } from '../services/local';
 import AddReview from '../components/AddReview';
-
+// teste
 export default class Product extends Component {
   constructor() {
     super();
