@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { addReview, readReview } from '../services/local';
 
 export default class AddReview extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       emailInput: '',
@@ -15,11 +14,12 @@ export default class AddReview extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const { id } = this.props;
-    const reviews = await readReview(id);
+  componentDidMount() {
+    const location = window.location.href;
+    const id = location.split('product/')[1];
+    const reviews = readReview(id);
     if (reviews) {
-      this.setState({ avaliation: reviews });
+      this.setState({ avaliation: reviews, id });
     }
   }
 
@@ -59,8 +59,7 @@ export default class AddReview extends React.Component {
   };
 
   toSave = () => {
-    const { id } = this.props;
-    const { avaliation } = this.state;
+    const { id, avaliation } = this.state;
     addReview(id, avaliation);
   }
 
@@ -166,7 +165,3 @@ export default class AddReview extends React.Component {
     );
   }
 }
-
-AddReview.propTypes = {
-  id: PropTypes.string.isRequired,
-};

@@ -47,7 +47,6 @@ export const saveReview = (id, r) => localStorage.setItem(`${id}`, JSON.stringif
 export const readReview = (id) => JSON.parse(localStorage.getItem(`${id}`));
 export const addReview = (id, array) => {
   const avaliation = readReview(id);
-  console.log(avaliation);
   array.forEach((item) => {
     if (avaliation === null) {
       saveReview(id, [item]);

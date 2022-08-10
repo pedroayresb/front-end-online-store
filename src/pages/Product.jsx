@@ -40,7 +40,7 @@ export default class Product extends Component {
 
   render() {
     const { product, count } = this.state;
-    const { title, thumbnail, price, shipping, id } = product;
+    const { title, thumbnail, price, shipping } = product;
     let freeShipping = false;
     if (shipping !== undefined) {
       freeShipping = shipping.free_shipping;
@@ -61,7 +61,7 @@ export default class Product extends Component {
             Adicionar ao carrinho
           </button>
         </div>
-        <AddReview id={ id } />
+        <AddReview />
       </section>
     );
   }
