@@ -16,8 +16,10 @@ export default class Product extends Component {
 
   async componentDidMount() {
     const cart = readItems();
-    const count = cart.reduce((acc, item) => acc + item.count, 0);
-    this.setState({ count });
+    if (cart) {
+      const count = cart.reduce((acc, item) => acc + item.count, 0);
+      this.setState({ count });
+    }
     const {
       match: {
         params: { id },
@@ -38,7 +40,7 @@ export default class Product extends Component {
 
   render() {
     const { product, count } = this.state;
-    const { title, thumbnail, price, shipping } = product;
+    const { title, thumbnail, price, shipping, id } = product;
     let freeShipping = false;
     if (shipping !== undefined) {
       freeShipping = shipping.free_shipping;
@@ -59,7 +61,7 @@ export default class Product extends Component {
             Adicionar ao carrinho
           </button>
         </div>
-        <AddReview />
+        <AddReview id={ id } />
       </section>
     );
   }

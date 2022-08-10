@@ -1,17 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { addReview, readReview } from '../services/local';
 
 export default class AddReview extends React.Component {
   constructor() {
     super();
 
     this.state = {
-
       emailInput: '',
       textAreaInput: '',
       radioInput: '',
       avaliation: [],
       invalidField: true,
     };
+  }
+
+  async componentDidMount() {
+    const { id } = this.props;
+    const reviews = await readReview(id);
+    if (reviews) {
+      this.setState({ avaliation: reviews });
+    }
   }
 
   validationInputs = () => {
@@ -22,7 +31,6 @@ export default class AddReview extends React.Component {
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    // const value = target.type === 'radio' ? target.checked : target.value;
 
     this.setState({
       [name]: value,
@@ -37,21 +45,28 @@ export default class AddReview extends React.Component {
       this.setState((prevState) => ({
         avaliation: [
           ...prevState.avaliation,
-          prevState.emailInput,
-          prevState.textAreaInput,
+          { email: prevState.emailInput,
+            comment: prevState.textAreaInput,
+            rating: prevState.radioInput },
         ],
         emailInput: '',
         textAreaInput: '',
-
-      }));
+        radioInput: '',
+      }), () => {
+        this.toSave();
+      });
     }
   };
 
+  toSave = () => {
+    const { id } = this.props;
+    const { avaliation } = this.state;
+    addReview(id, avaliation);
+  }
+
   render() {
     const { emailInput,
-      textAreaInput, avaliation, invalidField, radioInput } = this.state;
-    console.log(radioInput);
-    console.log(avaliation);
+      textAreaInput, invalidField, avaliation } = this.state;
     return (
       <section>
         <h1> Avaliações</h1>
@@ -140,8 +155,18 @@ export default class AddReview extends React.Component {
           </button>
         </form>
         {invalidField && <p data-testid="error-msg">Campos inválidos</p>}
-        {!invalidField && avaliation.map((aval, index) => <p key={ index }>{aval}</p>)}
+        {avaliation.map((aval, index) => (
+          <div key={ index }>
+            <p data-testid="review-card-email">{aval.email}</p>
+            <p data-testid="review-card-rating">{aval.rating}</p>
+            <p data-testid="review-card-evaluation">{aval.comment}</p>
+          </div>
+        ))}
       </section>
     );
   }
 }
+
+AddReview.propTypes = {
+  id: PropTypes.string.isRequired,
+};

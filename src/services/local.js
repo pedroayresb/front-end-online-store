@@ -42,6 +42,21 @@ export const removeItem = (item) => {
   const items = readItems();
   saveItem(items.filter((i) => i.id !== item.id));
 };
+
+export const saveReview = (id, r) => localStorage.setItem(`${id}`, JSON.stringify(r));
+export const readReview = (id) => JSON.parse(localStorage.getItem(`${id}`));
+export const addReview = (id, array) => {
+  const avaliation = readReview(id);
+  console.log(avaliation);
+  array.forEach((item) => {
+    if (avaliation === null) {
+      saveReview(id, [item]);
+    } else {
+      saveReview(id, [...avaliation, item]);
+    }
+  });
+};
+
 export const clearCart = () => {
   localStorage.removeItem(KEY);
   localStorage.setItem(KEY, JSON.stringify([]));
