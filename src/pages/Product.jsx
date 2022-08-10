@@ -11,7 +11,9 @@ export default class Product extends Component {
     super();
     this.state = {
       product: {},
+      count: 0,
     };
+    this.getLocalStorage();
   }
 
   async componentDidMount() {
@@ -37,6 +39,14 @@ export default class Product extends Component {
     const { count } = this.state;
     this.setState({ count: count + 1 });
   };
+
+  getLocalStorage = () => {
+    const cart = readItems();
+    if (cart) {
+      const count = cart.reduce((acc, item) => acc + item.count, 0);
+      this.setState({ count });
+    }
+  }
 
   render() {
     const { product, count } = this.state;
