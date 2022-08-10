@@ -15,8 +15,10 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     const cart = readItems();
-    const count = cart.reduce((acc, item) => acc + item.count, 0);
-    this.setState({ count });
+    if (cart !== null) {
+      const count = cart.reduce((acc, item) => acc + item.count, 0);
+      this.setState({ count });
+    }
   }
 
   addCount() {

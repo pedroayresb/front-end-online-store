@@ -11,13 +11,16 @@ export default class Product extends Component {
     super();
     this.state = {
       product: {},
+      count: 0,
     };
   }
 
   async componentDidMount() {
     const cart = readItems();
-    const count = cart.reduce((acc, item) => acc + item.count, 0);
-    this.setState({ count });
+    if (cart !== null) {
+      const count = cart.reduce((acc, item) => acc + item.count, 0);
+      this.setState({ count });
+    }
     const {
       match: {
         params: { id },
