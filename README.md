@@ -18,18 +18,18 @@ Este é um projeto de loja online desenvolvido em React como parte de um grupo d
 1.  Clone o repositório em sua máquina local
 
 ```bash
-`git clone git@github.com:pedroayresb/front-end-online-store.git
+git clone git@github.com:pedroayresb/front-end-online-store.git
 ``` 
 
 2.  Acesse o diretório do projeto
 
 ```bash
-`cd front-end-online-store
+cd front-end-online-store
 ``` 
 3.  Instale as dependências
 
 ```bash
-`npm install` 
+npm install
 ``` 
 4.  Inicie a aplicação
 
