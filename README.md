@@ -1,30 +1,38 @@
-# FRONT END ONLINE STORE
-## _Front End Development_
+# Loja Online (React)
 
-## US 🇺🇸
+Este é um projeto de loja online desenvolvido em React como parte de um grupo de trabalho utilizando o método Kanban para definir as demandas. A aplicação permite que os usuários busquem produtos na API do Mercado Livre, adicionem e removam itens de um carrinho de compras, vejam detalhes e avaliações de um produto e simulem a finalização de uma compra.
 
-This project was developed at the Front end development module at [Trybe], where we, after learning about agile methods, worked in a group to create the app.
+## Funcionalidades
 
-The code is the as it was when the last commit was pushed to complete the project, aside from CSS which, at the current date, is being worked on.
+-   Busca de produtos por termos e categorias na API do Mercado Livre
+-   Adição e remoção de itens do carrinho de compras com quantidades definidas
+-   Visualização de detalhes e avaliações de um produto, incluindo a possibilidade de criar novas avaliações
+-   Simulação da finalização da compra com itens selecionados
 
-# I worked on:
-    The Card page
-    The Product page
-    The Payements page
+## Requisitos
 
-## BR 🇧🇷
+-   React
 
-Esse projeto foi desenvolvido no modulo de Desenvolvimento Front End na [Trybe], onde nos, apos aprender sobre Metodologias ageis, trabalhamos em grupo para criar o aplicativo.
+## Instalação
 
-O codigo se encontra da forma como foi o ultimo commit para finalizacao do projeto, tirando o CSS que, no presente momento, ainda esta sendo finalizado.
+1.  Clone o repositório em sua máquina local
 
-# Eu trabalhei:
-    Pagina de carrinho
-    Pagina de produto
-    Pagina de Pagamentos
+```bash
+`git clone git@github.com:pedroayresb/front-end-online-store.git
+``` 
 
+2.  Acesse o diretório do projeto
 
+```bash
+`cd front-end-online-store
+``` 
+3.  Instale as dependências
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+```bash
+`npm install` 
+``` 
+4.  Inicie a aplicação
 
-  [Trybe]: <https://www.betrybe.com/>
+```bash
+npm start
+``` 
